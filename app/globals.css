@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+/* Una paleta y una tipografía (boceto T1). */
+@theme {
+  --color-marca: #0f766e;
+  --color-marca-oscuro: #115e59;
+  --color-acento: #f59e0b;
+  --color-tinta: #1c1917;
+  --color-suave: #57534e;
+  --color-fondo: #fafaf9;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background: var(--color-fondo);
+  color: var(--color-tinta);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+}
