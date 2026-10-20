@@ -6,3 +6,4 @@ Las decisiones heredadas del Guardián (stack, ramas, Netlify, releases, pruebas
 
 | # | Decisión | Estado |
 |---|---|---|
+| [0001](0001-como-se-cuida-la-ui.md) | Cómo se cuida la UI: boceto en T1, capturas de Playwright y umbrales del celular chico | Propuesta |

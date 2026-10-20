@@ -1,0 +1,263 @@
+{
+  "fases": [
+    {
+      "numero": 1,
+      "nombre": "Vitrina que vende",
+      "entregable": "La tienda está publicada, se ve profesional y el dueño cambia textos, guías y precios desde el Sheet"
+    },
+    {
+      "numero": 2,
+      "nombre": "Pago",
+      "entregable": "Se puede pagar una guía y el dueño ve el pedido pagado en el Sheet"
+    },
+    {
+      "numero": 3,
+      "nombre": "Entrega",
+      "entregable": "El cliente recibe su guía y el ciclo de compra queda completo"
+    }
+  ],
+  "tareas": [
+    {
+      "id": "T1",
+      "fase": 1,
+      "titulo": "Boceto: portada y ficha completas con datos de prueba",
+      "escenarios": [
+        {
+          "archivo": "features/fase-1-vitrina.feature",
+          "gherkin": "Escenario: Señales de confianza\n  Cuando entro a la portada\n  Entonces veo \"Pago seguro con Mercado Pago\", \"Yape y tarjeta\" y \"Descarga al instante\""
+        },
+        {
+          "archivo": "features/fase-1-vitrina.feature",
+          "gherkin": "Escenario: Comprar siempre a mano en el celular\n  Dado que entro a la ficha de \"CV que sí llama\" desde un celular\n  Cuando bajo hasta las preguntas frecuentes\n  Entonces sigo viendo el botón \"Comprar · S/ 15\""
+        },
+        {
+          "archivo": "features/fase-1-vitrina.feature",
+          "gherkin": "Escenario: Se lee bien en un celular chico\n  Cuando entro a la portada y a una ficha desde un celular chico\n  Entonces no hay que moverse hacia los costados y todo se lee y se toca bien"
+        }
+      ],
+      "que": "Portada (banner con titular, subtítulo, imagen y botón «Ver guías»; franja de confianza; grilla con portada, título, precio y precio tachado) y ficha de venta (descripción, «Qué vas a lograr», «Para quién es», «Qué incluye», preguntas frecuentes y botón «Comprar · S/ N» inactivo y fijo abajo en el celular), con Tailwind + shadcn/ui, una paleta y una tipografía, y datos inventados en fixtures, sin Sheet ni pagos. Su preview es el boceto: el dueño lo revisa en el celular y pide cambios en el PR; fusionarlo es aprobar el diseño. Celular chico según ADR 0001: 320 px sin scroll horizontal, texto ≥ 16 px y elementos tocables ≥ 44×44 px. Si pasa de 300 líneas por los componentes generados de shadcn/ui, el PR lo dice y separa cuánto es código generado.",
+      "hecho": "Los escenarios «Señales de confianza», «Comprar siempre a mano en el celular» y «Se lee bien en un celular chico» en verde.",
+      "necesita": ""
+    },
+    {
+      "id": "T2",
+      "fase": 1,
+      "titulo": "Catálogo desde la pestaña Productos",
+      "escenarios": [
+        {
+          "archivo": "features/fase-1-vitrina.feature",
+          "gherkin": "Escenario: Ver el catálogo\n  Dado que el Sheet tiene las guías \"CV que sí llama\" a S/ 15 y \"Tu primera entrevista\" a S/ 20\n  Cuando entro a la portada\n  Entonces veo las dos guías con su título, portada y precio"
+        },
+        {
+          "archivo": "features/fase-1-vitrina.feature",
+          "gherkin": "Escenario: Catálogo vacío\n  Dado que el Sheet no tiene guías\n  Cuando entro a la portada\n  Entonces veo \"Pronto tendremos guías\""
+        },
+        {
+          "archivo": "features/fase-1-vitrina.feature",
+          "gherkin": "Escenario: Precio de oferta\n  Dado que \"CV que sí llama\" cuesta S/ 15 y antes costaba S/ 25\n  Cuando entro a la portada\n  Entonces veo \"S/ 15\" y \"S/ 25\" tachado"
+        }
+      ],
+      "que": "La grilla del boceto lee las guías de la pestaña *Productos* (con `precio_antes` opcional para el precio tachado) con la service account, solo lectura. Si el Sheet o la pestaña fallan, la portada no se cae (lecciones: Google Sheets). En las pruebas, el Sheet se simula con fixtures; nunca datos reales.",
+      "hecho": "Los escenarios «Ver el catálogo», «Catálogo vacío» y «Precio de oferta» en verde.",
+      "necesita": "Google Cloud: una service account con la **Google Sheets API habilitada** en su proyecto (si no, Google responde 403 y la página sale vacía). Dos Sheets, uno para staging y preview y otro para producción, cada uno compartido con la service account como **Lector**, con estas pestañas y encabezados en la fila 1: *Productos* `slug | titulo | precio | precio_antes | portada | descripcion | logros | para_quien | incluye` (logros e incluye: uno por línea en la misma celda); *Portada* `titular | subtitulo | imagen`; *Preguntas* `slug | pregunta | respuesta`. En Netlify (Site configuration → Environment variables), marcadas como secretas y con un valor por contexto (producción vs. deploy previews y branch deploys): `GOOGLE_SERVICE_ACCOUNT_JSON` (el JSON de la llave) y `SHEET_ID`."
+    },
+    {
+      "id": "T3",
+      "fase": 1,
+      "titulo": "Banner desde la pestaña Portada",
+      "escenarios": [
+        {
+          "archivo": "features/fase-1-vitrina.feature",
+          "gherkin": "Escenario: Banner principal\n  Dado que la pestaña Portada tiene el titular \"Consigue tu primera chamba\"\n  Cuando entro a la portada\n  Entonces veo el titular \"Consigue tu primera chamba\" y el botón \"Ver guías\""
+        }
+      ],
+      "que": "El banner del boceto lee titular, subtítulo e imagen de la pestaña *Portada*; el botón «Ver guías» lleva a la grilla. Si la pestaña falta, se muestran textos por defecto.",
+      "hecho": "El escenario «Banner principal» en verde.",
+      "necesita": ""
+    },
+    {
+      "id": "T4",
+      "fase": 1,
+      "titulo": "Ficha leída desde el Sheet",
+      "escenarios": [
+        {
+          "archivo": "features/fase-1-vitrina.feature",
+          "gherkin": "Escenario: Ver la ficha de una guía\n  Dado que el Sheet tiene la guía \"CV que sí llama\" a S/ 15\n  Cuando entro a su ficha\n  Entonces veo su descripción, el precio \"S/ 15\" y el botón \"Comprar\""
+        }
+      ],
+      "que": "La ficha del boceto (ruta por `slug`) lee la guía de *Productos*: descripción, precio y botón «Comprar» (todavía inactivo). Un `slug` que no existe muestra la página de error.",
+      "hecho": "El escenario «Ver la ficha de una guía» en verde.",
+      "necesita": ""
+    },
+    {
+      "id": "T5",
+      "fase": 1,
+      "titulo": "Secciones de venta y preguntas desde el Sheet",
+      "escenarios": [
+        {
+          "archivo": "features/fase-1-vitrina.feature",
+          "gherkin": "Escenario: Ficha de venta\n  Dado que \"CV que sí llama\" tiene sus logros, para quién es y qué incluye en el Sheet\n  Cuando entro a su ficha\n  Entonces veo las secciones \"Qué vas a lograr\", \"Para quién es\", \"Qué incluye\" y \"Preguntas frecuentes\""
+        }
+      ],
+      "que": "Las secciones «Qué vas a lograr», «Para quién es» y «Qué incluye» salen de las columnas `logros`, `para_quien` e `incluye`; «Preguntas frecuentes», de la pestaña *Preguntas* filtrada por `slug`. Una sección vacía no se muestra; si *Preguntas* falla, la ficha sigue sin esa sección.",
+      "hecho": "El escenario «Ficha de venta» en verde.",
+      "necesita": ""
+    },
+    {
+      "id": "T6",
+      "fase": 1,
+      "titulo": "Regresión visual de la portada y la ficha",
+      "escenarios": [
+        {
+          "archivo": "features/fase-1-vitrina.feature",
+          "gherkin": "Escenario: La portada se ve como la aprobada\n  Dado que aprobé cómo se ve la portada en celular y en escritorio\n  Cuando un cambio altera cómo se ve\n  Entonces el PR queda en rojo y me muestra la diferencia antes de fusionar"
+        },
+        {
+          "archivo": "features/fase-1-vitrina.feature",
+          "gherkin": "Escenario: La ficha se ve como la aprobada\n  Dado que aprobé cómo se ve la ficha de \"CV que sí llama\" en celular y en escritorio\n  Cuando un cambio altera cómo se ve\n  Entonces el PR queda en rojo y me muestra la diferencia antes de fusionar"
+        }
+      ],
+      "que": "Capturas con `toHaveScreenshot` de Playwright en celular (390 px) y escritorio (1280 px) con datos de prueba, generadas en el contenedor Linux de Playwright del CI (ADR 0001). Tolerancia 1 % de píxeles; el reporte con la diferencia se sube como artefacto y se enlaza en el resumen del run. Cambiar una captura de referencia se ve como imagen en el PR: fusionarlo es aprobarla.",
+      "hecho": "Los escenarios «La portada se ve como la aprobada» y «La ficha se ve como la aprobada» en verde.",
+      "necesita": ""
+    },
+    {
+      "id": "T7",
+      "fase": 2,
+      "titulo": "Pedir el correo antes de pagar",
+      "escenarios": [
+        {
+          "archivo": "features/fase-2-pago.feature",
+          "gherkin": "Escenario: Pedir el correo antes de pagar\n  Dado que estoy en la ficha de \"CV que sí llama\"\n  Cuando presiono \"Comprar\" y escribo \"correo-malo\"\n  Entonces veo \"Escribe un correo válido\" y no paso a Mercado Pago"
+        }
+      ],
+      "que": "«Comprar» se activa y pide el correo; se valida en la página y en el servidor (formato y largo máximo). Con un correo inválido no se pasa a Mercado Pago.",
+      "hecho": "El escenario «Pedir el correo antes de pagar» en verde.",
+      "necesita": ""
+    },
+    {
+      "id": "T8",
+      "fase": 2,
+      "titulo": "Pedido pendiente, precio del servidor y paso a Mercado Pago",
+      "escenarios": [
+        {
+          "archivo": "features/fase-2-pago.feature",
+          "gherkin": "Escenario: El precio lo pone la tienda\n  Dado que \"CV que sí llama\" cuesta S/ 15 en el Sheet\n  Cuando intento comprarla enviando un precio de S/ 1 desde el navegador\n  Entonces el resumen de pago muestra \"S/ 15\""
+        }
+      ],
+      "que": "El servidor crea el pedido #N «pendiente» en *Pedidos* (`valueInputOption=RAW`) con el precio leído del Sheet, ignora cualquier precio del navegador, crea la preferencia de Checkout Pro y redirige. URLs de retorno con origen fijo, nunca de headers del visitante. Límite de pedidos por IP (producto). En E2E, Mercado Pago simulado. Incluye la ADR de si el Sheet alcanza para los pedidos (numeración y escrituras simultáneas).",
+      "hecho": "El escenario «El precio lo pone la tienda» en verde.",
+      "necesita": "Mercado Pago: credenciales **de prueba** y usuarios de prueba (comprador y vendedor). En los dos Sheets, la pestaña *Pedidos* con `numero | fecha | slug | titulo | precio | correo | estado | pago_id`, y la service account pasa a **Editor**. En Netlify, secreta y por contexto: `MP_ACCESS_TOKEN` (el Access Token de prueba)."
+    },
+    {
+      "id": "T9",
+      "fase": 2,
+      "titulo": "Página de gracias mientras se confirma el pago",
+      "escenarios": [
+        {
+          "archivo": "features/fase-2-pago.feature",
+          "gherkin": "Escenario: Pago pendiente\n  Dado que compro \"CV que sí llama\"\n  Cuando Mercado Pago deja el pago pendiente\n  Entonces la página de gracias muestra \"Pedido #1 · Estamos confirmando tu pago\""
+        },
+        {
+          "archivo": "features/fase-2-pago.feature",
+          "gherkin": "Escenario: La página de gracias no marca el pago\n  Dado que compro \"CV que sí llama\" y todavía no llega la notificación de Mercado Pago\n  Cuando abro la página de gracias del pedido #1\n  Entonces veo \"Estamos confirmando tu pago\" y no veo el enlace de descarga"
+        }
+      ],
+      "que": "La página de gracias del pedido #N lee su estado del Sheet y muestra «Pedido #N · Estamos confirmando tu pago» mientras no esté pagado. Nunca cambia el estado con lo que trae la URL de retorno de Mercado Pago, y no muestra ningún enlace de descarga.",
+      "hecho": "Los escenarios «Pago pendiente» y «La página de gracias no marca el pago» en verde.",
+      "necesita": ""
+    },
+    {
+      "id": "T10",
+      "fase": 2,
+      "titulo": "Webhook de Mercado Pago verificado por firma",
+      "escenarios": [
+        {
+          "archivo": "features/fase-2-pago.feature",
+          "gherkin": "Escenario: Pago aprobado\n  Dado que compro \"CV que sí llama\" con el correo \"ana@ejemplo.com\"\n  Cuando Mercado Pago aprueba el pago y llega su notificación firmada\n  Entonces la página de gracias muestra \"Pedido #1 · Pagado\""
+        },
+        {
+          "archivo": "features/fase-2-pago.feature",
+          "gherkin": "Escenario: Notificación con firma falsa\n  Dado que el pedido #1 está pendiente\n  Cuando llega una notificación de pago con una firma inválida\n  Entonces la página de gracias del pedido #1 sigue mostrando \"Estamos confirmando tu pago\""
+        }
+      ],
+      "que": "Ruta de webhook que verifica la firma `x-signature` con el secreto (comparación en tiempo constante; sin firma válida, no cambia nada). Con la firma válida, consulta el pago a la API de Mercado Pago por su id (no confía en el estado de la notificación); verifica que el monto pagado sea igual al precio del pedido; marca el pedido «pagado» o «rechazado». Una notificación repetida no duplica ni cambia nada. En E2E, Mercado Pago simulado; la notificación real solo se prueba en staging (la URL del preview cambia en cada PR).",
+      "hecho": "Los escenarios «Pago aprobado» y «Notificación con firma falsa» en verde.",
+      "necesita": "En Mercado Pago (Tus integraciones → Webhooks), modo prueba: la URL `https://<sitio-de-staging>/api/webhooks/mercadopago` con el evento *Pagos*. En Netlify, secreta y por contexto: `MP_WEBHOOK_SECRET` (la clave secreta que muestra Mercado Pago)."
+    },
+    {
+      "id": "T11",
+      "fase": 2,
+      "titulo": "Pago rechazado",
+      "escenarios": [
+        {
+          "archivo": "features/fase-2-pago.feature",
+          "gherkin": "Escenario: Pago rechazado\n  Dado que compro \"CV que sí llama\"\n  Cuando Mercado Pago rechaza el pago\n  Entonces veo \"Tu pago fue rechazado\" y el botón \"Intentar de nuevo\""
+        }
+      ],
+      "que": "Cuando Mercado Pago rechaza el pago, la página muestra «Tu pago fue rechazado» y «Intentar de nuevo», que vuelve a la ficha para comprar otra vez.",
+      "hecho": "El escenario «Pago rechazado» en verde.",
+      "necesita": ""
+    },
+    {
+      "id": "T12",
+      "fase": 3,
+      "titulo": "PDF privados y enlace firmado que vence a los 7 días",
+      "escenarios": [
+        {
+          "archivo": "features/fase-3-entrega.feature",
+          "gherkin": "Escenario: Los PDF no son públicos\n  Dado que existe la guía \"CV que sí llama\"\n  Cuando intento abrir su PDF sin un enlace firmado, o con uno alterado\n  Entonces veo \"Enlace no válido\" y no se descarga el PDF"
+        },
+        {
+          "archivo": "features/fase-3-entrega.feature",
+          "gherkin": "Escenario: Enlace vencido\n  Dado que el enlace de descarga del pedido #1 se creó hace 8 días\n  Cuando lo abro\n  Entonces veo \"Este enlace venció\" y no se descarga el PDF"
+        }
+      ],
+      "que": "ADR de dónde guardar los PDF privados (p. ej. Netlify Blobs o Google Drive) y cómo firmar el enlace, aprobada por el dueño. Enlace firmado con HMAC (librería, no criptografía propia) ligado al pedido pagado, que vence a los 7 días; sin firma o alterado → «Enlace no válido»; vencido → «Este enlace venció». Ningún PDF accesible por URL pública. Después de validar el token, la descarga no lo deja en la URL final.",
+      "hecho": "Los escenarios «Los PDF no son públicos» y «Enlace vencido» en verde.",
+      "necesita": "En Netlify, secreta y por contexto: `DESCARGA_SECRETO` (genérala con `openssl rand -base64 32`; un valor distinto para producción)."
+    },
+    {
+      "id": "T13",
+      "fase": 3,
+      "titulo": "Descargar desde la página de gracias",
+      "escenarios": [
+        {
+          "archivo": "features/fase-3-entrega.feature",
+          "gherkin": "Escenario: Descargar desde la página de gracias\n  Dado que el pedido #1 de \"CV que sí llama\" está pagado\n  Cuando abro su página de gracias\n  Entonces veo el botón \"Descargar tu guía\" y al presionarlo se descarga el PDF"
+        }
+      ],
+      "que": "Con el pedido pagado, la página de gracias muestra «Descargar tu guía» con el enlace firmado de T12, y al presionarlo se descarga el PDF.",
+      "hecho": "El escenario «Descargar desde la página de gracias» en verde.",
+      "necesita": ""
+    },
+    {
+      "id": "T14",
+      "fase": 3,
+      "titulo": "Correo al cliente con la descarga",
+      "escenarios": [
+        {
+          "archivo": "features/fase-3-entrega.feature",
+          "gherkin": "Escenario: Correo con la descarga\n  Dado que el pedido #1 de \"ana@ejemplo.com\" está pagado\n  Cuando reviso la bandeja de pruebas\n  Entonces veo un correo para \"ana@ejemplo.com\" con el enlace \"Descargar tu guía\""
+        }
+      ],
+      "que": "Al pasar el pedido a «pagado» (webhook), se envía con Resend un correo al cliente con el enlace «Descargar tu guía» (origen fijo, nunca de headers). Si el envío falla, el pedido sigue pagado, y se aplica la lección «Una parte secundaria falla» (producto). En las pruebas, los correos van a una bandeja de pruebas simulada. Sin dominio propio, Resend solo entrega al correo de la cuenta: alcanza para el criterio de la sección 5.",
+      "hecho": "El escenario «Correo con la descarga» en verde.",
+      "necesita": "Resend: una cuenta y una API key con permiso solo de envío. En Netlify, secreta y por contexto: `RESEND_API_KEY`."
+    },
+    {
+      "id": "T15",
+      "fase": 3,
+      "titulo": "Aviso de venta al dueño",
+      "escenarios": [
+        {
+          "archivo": "features/fase-3-entrega.feature",
+          "gherkin": "Escenario: Aviso de venta al dueño\n  Dado que el pedido #1 de \"CV que sí llama\" está pagado\n  Cuando reviso la bandeja de pruebas\n  Entonces veo un correo para el dueño con \"Nueva venta: CV que sí llama · S/ 15\""
+        }
+      ],
+      "que": "Junto con el correo al cliente, se envía al dueño «Nueva venta: <título> · S/ <precio>». Si falla, no afecta al cliente ni al pedido.",
+      "hecho": "El escenario «Aviso de venta al dueño» en verde.",
+      "necesita": "En Netlify, por contexto: `CORREO_DUENO` (el correo de tu cuenta de Resend)."
+    }
+  ]
+}

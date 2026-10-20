@@ -251,3 +251,6 @@ Escenario: Los PDF no son públicos
 | 2026-10-10 | UI vendedora con una lista cerrada de elementos, en la Fase 1, sin subir las 3 semanas | El dueño quiere que venda; la lista cerrada evita pulir sin fin. Si hay atraso, el Guardián lo avisa |
 | 2026-10-10 | El boceto de la portada y la ficha se aprueba una vez antes de construir | «Profesional» es subjetivo: se acuerda en un boceto, no en iteraciones de código |
 | 2026-10-11 | Cómo se ve la UI se cuida con pruebas en cada PR; las herramientas y los umbrales los decide /guardian-planificar con sus ADRs | El alcance dice qué se cuida; el cómo es decisión técnica del proyecto |
+| 2026-10-19 | Los escenarios usan datos inventados (fixtures y Sheet simulado), nunca los reales; los correos van a una bandeja de pruebas simulada | Las pruebas no dependen de cuentas externas ni tocan datos de clientes |
+| 2026-10-19 | El boceto es el ticket T1 (portada y ficha completas con datos de prueba); fusionarlo es aprobar el diseño. Herramientas y umbrales de la UI: ADR 0001 | Se aprueba el diseño viéndolo en el celular, no en una imagen |
+| 2026-10-19 | La compra de punta a punta en staging (sección 5) es la verificación manual que cierra la Fase 3, sin ticket propio | No es un escenario automatizable: usa el sandbox real de Mercado Pago |
