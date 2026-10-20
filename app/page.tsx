@@ -1,96 +1,100 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Cabecera } from "@/components/cabecera";
 import { Button } from "@/components/ui/button";
-import { Descarga, Escudo, Libro, Tarjeta } from "@/components/iconos";
+import { Descarga, Escudo, Tarjeta } from "@/components/iconos";
 import { PortadaLibro } from "@/components/portada-libro";
 import { Precio } from "@/components/precio";
 import { guias, mediosDePago, pasos, portada, senalesDeConfianza } from "@/lib/guias-prueba";
-import { leerNombreDelProyecto } from "@/lib/nombre-proyecto";
 
 const iconosDeConfianza = [Escudo, Tarjeta, Descarga];
-const iconosDePasos = [Libro, Tarjeta, Descarga];
 
 export default function Page() {
   return (
-    <main>
-      <header className="bg-marca-oscuro px-4 py-4">
-        <h1 className="mx-auto max-w-5xl text-2xl font-black tracking-tight text-white">{leerNombreDelProyecto()}</h1>
-      </header>
-
-      <section className="bg-gradient-to-br from-marca-oscuro via-marca to-teal-500 text-white">
-        <div className="mx-auto grid max-w-5xl items-center gap-8 px-4 pb-20 pt-10 md:grid-cols-2 md:py-16">
-          <div className="space-y-6">
-            <h2 className="text-4xl font-black md:text-6xl">{portada.titular}</h2>
-            <p className="text-xl text-teal-50">{portada.subtitulo}</p>
-            <Button asChild variant="acento" className="px-9">
-              <a href="#guias">Ver guías</a>
-            </Button>
+    <>
+      <Cabecera principal />
+      <main>
+        {/* Oscuro */}
+        <section className="bg-marca-oscuro text-white">
+          <div className="mx-auto grid max-w-5xl items-center gap-12 px-4 py-14 md:grid-cols-2 md:py-20">
+            <div className="space-y-6">
+              <h2 className="text-4xl font-black md:text-6xl">{portada.titular}</h2>
+              <p className="text-xl text-slate-200">{portada.subtitulo}</p>
+              <Button asChild variant="contorno" className="px-9">
+                <a href="#guias">Ver guías</a>
+              </Button>
+            </div>
+            <div className="flex justify-center gap-4" aria-hidden>
+              {guias.map((g, i) => (
+                <div key={g.slug} className={`w-1/2 max-w-48 ${i === 1 ? "mt-10" : ""}`}>
+                  <PortadaLibro src={g.portada} precio={g.precio} precioAntes={g.precioAntes} etiqueta={false} priority />
+                </div>
+              ))}
+            </div>
           </div>
-          <Image src={portada.imagen} alt="" width={640} height={480} priority unoptimized className="mx-auto w-full max-w-md" />
-        </div>
-      </section>
+        </section>
 
-      <section className="relative z-10 mx-auto -mt-12 max-w-5xl px-4">
-        <div className="space-y-5 rounded-2xl bg-white p-5 shadow-xl ring-1 ring-black/5">
-          <ul className="grid gap-4 sm:grid-cols-3">
-            {senalesDeConfianza.map((s, i) => {
-              const Icono = iconosDeConfianza[i];
-              return (
-                <li key={s} className="flex items-center gap-3 text-base font-bold">
-                  <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-marca-claro text-marca-oscuro">
-                    <Icono />
-                  </span>
-                  <span>{s}</span>
+        {/* Claro */}
+        <section className="border-b border-slate-200 bg-white">
+          <div className="mx-auto max-w-5xl space-y-6 px-4 py-8">
+            <ul className="grid gap-3 sm:grid-cols-3">
+              {senalesDeConfianza.map((s, i) => {
+                const Icono = iconosDeConfianza[i];
+                return (
+                  <li key={s} className="flex items-center gap-3 font-semibold text-marca-oscuro">
+                    <span className="shrink-0 text-marca">
+                      <Icono />
+                    </span>
+                    <span>{s}</span>
+                  </li>
+                );
+              })}
+            </ul>
+            <ul className="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-slate-200 pt-5">
+              {mediosDePago.map((m) => (
+                <li key={m.nombre}>
+                  <Image src={m.logo} alt={m.nombre} width={96} height={40} unoptimized className="h-9 w-auto" />
                 </li>
-              );
-            })}
-          </ul>
-          <ul className="flex flex-wrap items-center justify-center gap-3 border-t border-black/10 pt-4">
-            {mediosDePago.map((m) => (
-              <li key={m.nombre}>
-                <Image src={m.logo} alt={m.nombre} width={96} height={40} unoptimized className="h-10 w-auto" />
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* Claro */}
+        <section id="guias" className="mx-auto max-w-5xl scroll-mt-4 px-4 py-16">
+          <h2 className="mb-10 text-3xl font-black text-marca-oscuro md:text-4xl">Guías</h2>
+          <ul className="grid gap-12 lg:grid-cols-2">
+            {guias.map((g) => (
+              <li key={g.slug}>
+                <Link href={`/guias/${g.slug}`} className="group grid items-center gap-6 sm:grid-cols-[10rem_1fr]">
+                  <div className="w-40 max-w-full">
+                    <PortadaLibro src={g.portada} precio={g.precio} precioAntes={g.precioAntes} />
+                  </div>
+                  <span className="block space-y-3">
+                    <span className="block text-2xl font-extrabold text-marca-oscuro group-hover:underline">{g.titulo}</span>
+                    <Precio precio={g.precio} precioAntes={g.precioAntes} />
+                  </span>
+                </Link>
               </li>
             ))}
           </ul>
-        </div>
-      </section>
+        </section>
 
-      <section id="guias" className="mx-auto max-w-5xl scroll-mt-4 px-4 py-16">
-        <h2 className="mb-8 text-3xl font-black md:text-4xl">Guías</h2>
-        <ul className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
-          {guias.map((g) => (
-            <li key={g.slug}>
-              <Link href={`/guias/${g.slug}`} className="group block space-y-5 rounded-2xl bg-white p-6 shadow-md ring-1 ring-black/5 transition-shadow hover:shadow-xl">
-                <PortadaLibro src={g.portada} precio={g.precio} precioAntes={g.precioAntes} />
-                <span className="block space-y-2">
-                  <span className="block text-xl font-extrabold">{g.titulo}</span>
-                  <Precio precio={g.precio} precioAntes={g.precioAntes} />
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="bg-white px-4 py-16">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="mb-8 text-3xl font-black md:text-4xl">Cómo funciona</h2>
-          <ol className="grid gap-6 md:grid-cols-3">
-            {pasos.map((p, i) => {
-              const Icono = iconosDePasos[i];
-              return (
-                <li key={p.titulo} className="space-y-3 rounded-2xl bg-fondo p-6">
-                  <span className="flex size-12 items-center justify-center rounded-full bg-marca text-white">
-                    <Icono />
-                  </span>
-                  <h3 className="text-xl font-extrabold">{`${i + 1}. ${p.titulo}`}</h3>
-                  <p className="text-suave">{p.texto}</p>
+        {/* Oscuro */}
+        <section id="como-funciona" className="scroll-mt-4 bg-marca text-white">
+          <div className="mx-auto max-w-5xl px-4 py-16">
+            <h2 className="mb-10 text-3xl font-black md:text-4xl">Cómo funciona</h2>
+            <ol className="grid gap-10 md:grid-cols-3">
+              {pasos.map((p, i) => (
+                <li key={p.titulo} className="border-t-2 border-white/30 pt-5">
+                  <h3 className="mb-2 text-xl font-extrabold">{`${i + 1}. ${p.titulo}`}</h3>
+                  <p className="text-slate-200">{p.texto}</p>
                 </li>
-              );
-            })}
-          </ol>
-        </div>
-      </section>
-    </main>
+              ))}
+            </ol>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }

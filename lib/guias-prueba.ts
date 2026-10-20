@@ -15,7 +15,6 @@ export type Guia = {
 export const portada = {
   titular: "Consigue tu primera chamba",
   subtitulo: "Guías cortas y prácticas, hechas para Lima: arma un CV que llama y llega listo a tu entrevista.",
-  imagen: "/portadas/banner.svg",
 };
 
 export const senalesDeConfianza = ["Pago seguro con Mercado Pago", "Yape y tarjeta", "Descarga al instante"];

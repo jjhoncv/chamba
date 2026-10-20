@@ -1,17 +1,15 @@
 @import "tailwindcss";
 
-/* Una paleta y una tipografía (boceto T1): teal profundo + ámbar, y rojo coral solo para la oferta y la compra. */
+/* Paleta sobria (boceto T1): azul marino de base y un solo acento, solo para comprar. */
 @theme {
-  --color-marca: #0f766e;
-  --color-marca-oscuro: #134e4a;
-  --color-marca-claro: #ccfbf1;
-  --color-acento: #fbbf24;
-  --color-compra: #c2410c;
-  --color-compra-oscuro: #9a3412;
-  --color-oferta: #dc2626;
-  --color-tinta: #0c1f1e;
-  --color-suave: #44514f;
-  --color-fondo: #f4f7f6;
+  --color-marca: #13315c;
+  --color-marca-oscuro: #0b2545;
+  --color-marca-claro: #e8eef6;
+  --color-acento: #c2410c;
+  --color-acento-oscuro: #9a3412;
+  --color-tinta: #0b1b2e;
+  --color-suave: #475569;
+  --color-fondo: #f6f8fb;
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
