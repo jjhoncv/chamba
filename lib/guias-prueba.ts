@@ -14,11 +14,27 @@ export type Guia = {
 
 export const portada = {
   titular: "Consigue tu primera chamba",
-  subtitulo: "Guías cortas y prácticas, hechas para Lima, que compras y lees al instante.",
+  subtitulo: "Guías cortas y prácticas, hechas para Lima: arma un CV que llama y llega listo a tu entrevista.",
   imagen: "/portadas/banner.svg",
 };
 
 export const senalesDeConfianza = ["Pago seguro con Mercado Pago", "Yape y tarjeta", "Descarga al instante"];
+
+export const mediosDePago = [
+  { nombre: "Mercado Pago", logo: "/logos/mercadopago.svg" },
+  { nombre: "Yape", logo: "/logos/yape.svg" },
+  { nombre: "Visa", logo: "/logos/visa.svg" },
+  { nombre: "Mastercard", logo: "/logos/mastercard.svg" },
+];
+
+export const pasos = [
+  { titulo: "Elige tu guía", texto: "Mira la que va con lo que buscas: CV o entrevista." },
+  { titulo: "Paga fácil", texto: "Con Yape o tarjeta, por Mercado Pago. Tus datos de tarjeta no pasan por aquí." },
+  { titulo: "Recibe tu PDF", texto: "Lo bajas en el acto y también te llega por correo." },
+];
+
+export const ahorro = (precio: number, antes: number) => antes - precio;
+export const descuento = (precio: number, antes: number) => Math.round((ahorro(precio, antes) / antes) * 100);
 
 export const guias: Guia[] = [
   {

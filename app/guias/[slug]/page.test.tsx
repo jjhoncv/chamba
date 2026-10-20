@@ -1,7 +1,9 @@
 // @vitest-environment jsdom
-import { render, screen } from "@testing-library/react";
-import { expect, it } from "vitest";
+import { cleanup, render, screen } from "@testing-library/react";
+import { afterEach, expect, it } from "vitest";
 import Page from "./page";
+
+afterEach(cleanup);
 
 it("la ficha tiene las secciones de venta y el botón Comprar inactivo", async () => {
   render(await Page({ params: Promise.resolve({ slug: "cv-que-si-llama" }) }));
@@ -9,5 +11,13 @@ it("la ficha tiene las secciones de venta y el botón Comprar inactivo", async (
     expect(screen.getByRole("heading", { name: h })).toBeTruthy();
   }
   const boton = screen.getByRole("button", { name: "Comprar · S/ 15" });
-  expect((boton as HTMLButtonElement).disabled).toBe(true);
+  // Se ve activo (color de marca) pero todavía no hace nada: Fase 2.
+  expect(boton.getAttribute("aria-disabled")).toBe("true");
+});
+
+it("la ficha muestra la oferta y «Qué vas a lograr» como tarjetas", async () => {
+  render(await Page({ params: Promise.resolve({ slug: "cv-que-si-llama" }) }));
+  expect(screen.getByText("-40 %")).toBeTruthy();
+  expect(screen.getByText("Ahorras S/ 10")).toBeTruthy();
+  expect(screen.getAllByTestId("logro")).toHaveLength(3);
 });

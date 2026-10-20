@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, expect, it } from "vitest";
 import Page from "./page";
-import { guias, senalesDeConfianza } from "@/lib/guias-prueba";
+import { guias, pasos, senalesDeConfianza } from "@/lib/guias-prueba";
 
 afterEach(cleanup);
 
@@ -22,4 +22,14 @@ it("muestra banner, franja de confianza y la grilla con precios", () => {
   for (const s of senalesDeConfianza) expect(screen.getByText(s)).toBeTruthy();
   for (const g of guias) expect(screen.getByRole("link", { name: new RegExp(g.titulo) })).toBeTruthy();
   expect(screen.getByText("S/ 25").tagName).toBe("S");
+});
+
+it("muestra la oferta, los medios de pago y los 3 pasos de «Cómo funciona»", () => {
+  render(<Page />);
+  expect(screen.getByText("-40 %")).toBeTruthy();
+  expect(screen.getByText("Ahorras S/ 10")).toBeTruthy();
+  for (const m of ["Mercado Pago", "Yape", "Visa", "Mastercard"]) expect(screen.getByAltText(m)).toBeTruthy();
+  expect(screen.getByRole("heading", { name: "Cómo funciona" })).toBeTruthy();
+  expect(pasos).toHaveLength(3);
+  for (const p of pasos) expect(screen.getByRole("heading", { name: new RegExp(p.titulo) })).toBeTruthy();
 });

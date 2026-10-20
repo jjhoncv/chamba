@@ -1,1 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="#115e59"/><text x="300" y="215" font-family="sans-serif" font-size="56" font-weight="700" fill="#fff" text-anchor="middle">CV</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="640" viewBox="0 0 480 640">
+  <defs><linearGradient id="f" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#134e4a"/><stop offset="1" stop-color="#0f766e"/></linearGradient></defs>
+  <rect width="480" height="640" fill="url(#f)"/>
+  <circle cx="420" cy="90" r="150" fill="#fff" opacity=".07"/>
+  <circle cx="60" cy="600" r="130" fill="#fbbf24" opacity=".16"/>
+  <rect x="40" y="44" width="34" height="34" rx="9" fill="#fbbf24"/>  <text x="86" y="71" font-family="system-ui,Segoe UI,Arial,sans-serif" font-size="26" font-weight="800" fill="#fff" letter-spacing="4">CHAMBA</text>
+  <text x="40" y="190" font-family="system-ui,Segoe UI,Arial,sans-serif" font-size="82" font-weight="900" fill="#fff">CV que</text>
+  <text x="40" y="272" font-family="system-ui,Segoe UI,Arial,sans-serif" font-size="82" font-weight="900" fill="#fbbf24">sí llama</text>
+  <rect x="40" y="298" width="72" height="8" rx="4" fill="#fbbf24"/>
+  <text x="40" y="346" font-family="system-ui,Segoe UI,Arial,sans-serif" font-size="25" fill="#ccfbf1">Una página que abre puertas</text>
+  <text x="40" y="380" font-family="system-ui,Segoe UI,Arial,sans-serif" font-size="25" fill="#ccfbf1">en el mercado limeño</text>
+  <g transform="translate(250 410) rotate(6)">
+    <rect width="150" height="170" rx="10" fill="#000" opacity=".2" transform="translate(8 8)"/>
+    <rect width="150" height="170" rx="10" fill="#fff"/>
+    <circle cx="36" cy="38" r="18" fill="#99f6e4"/><rect x="66" y="26" width="64" height="9" rx="4" fill="#0f766e"/><rect x="66" y="44" width="44" height="7" rx="3" fill="#cbd5e1"/>
+    <rect x="18" y="76" width="114" height="7" rx="3" fill="#cbd5e1"/><rect x="18" y="94" width="100" height="7" rx="3" fill="#cbd5e1"/><rect x="18" y="112" width="114" height="7" rx="3" fill="#cbd5e1"/><rect x="18" y="136" width="66" height="9" rx="4" fill="#fbbf24"/>
+  </g>
+  <circle cx="400" cy="420" r="28" fill="#22c55e"/><path d="m388 420 9 10 17-20" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="40" y="610" font-family="system-ui,Segoe UI,Arial,sans-serif" font-size="20" font-weight="700" fill="#99f6e4" letter-spacing="2">GUÍA PRÁCTICA · LIMA</text>
+</svg>
