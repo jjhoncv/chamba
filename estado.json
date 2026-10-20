@@ -1,9 +1,12 @@
 {
   "proyecto": "chamba",
-  "fase": null,
+  "fase": {
+    "titulo": "Fase 1 — Vitrina que vende",
+    "vence": "2026-10-27T00:00:00Z"
+  },
   "avance": {
     "verdes": 0,
-    "total": 0,
+    "total": 23,
     "porcentaje": 0
   },
   "salud": {
@@ -14,7 +17,7 @@
     "diasAtraso": 0,
     "pausa": false
   },
-  "actualizado": "2026-10-20T00:35:49.527Z",
+  "actualizado": "2026-10-20T01:03:20.536Z",
   "vencimientos": [
     {
       "secreto": "ANTHROPIC_API_KEY",
