@@ -21,5 +21,5 @@ permissions:
 
 jobs:
   claude:
-    uses: jjhoncv/guardian/.github/workflows/guardian-claude.yml@v0.18.2
+    uses: jjhoncv/guardian/.github/workflows/guardian-claude.yml@v0.20.2
     secrets: inherit
