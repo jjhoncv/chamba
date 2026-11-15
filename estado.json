@@ -13,13 +13,13 @@
     "color": "rojo",
     "emoji": "🔴",
     "motivos": [
-      "«Fase 1 — Vitrina que vende» lleva 18 días de atraso",
+      "«Fase 1 — Vitrina que vende» lleva 19 días de atraso",
       "El PR #19 espera tu revisión hace más de 24 h"
     ],
     "alertas": [
       {
         "gravedad": "rojo",
-        "texto": "«Fase 1 — Vitrina que vende» lleva 18 días de atraso",
+        "texto": "«Fase 1 — Vitrina que vende» lleva 19 días de atraso",
         "accion": "Decide: achicar el alcance de la fase o reprogramar su fecha"
       },
       {
@@ -29,10 +29,10 @@
         "pr": 19
       }
     ],
-    "diasAtraso": 18,
+    "diasAtraso": 19,
     "pausa": false
   },
-  "actualizado": "2026-11-14T16:48:23.740Z",
+  "actualizado": "2026-11-15T17:31:05.242Z",
   "vencimientos": [
     {
       "secreto": "ANTHROPIC_API_KEY",
